@@ -29,7 +29,9 @@ each [release](https://github.com/transferable-io/cli/releases) with their SHA-2
 ```sh
 transferable login                                  # sign in through the browser
 transferable upload ./Wedding-Dupont --folder "Dupont"
-transferable deliver "Wedding - Dupont" --from "Dupont" --publish
+transferable deliver "Wedding - Dupont" --from "Dupont" --sections-from-subfolders
+transferable delivery show <id>                     # check it, then
+transferable delivery publish <id>                  # put the link online
 ```
 
 `transferable --help` lists every command. Large uploads can run in the background with
@@ -45,7 +47,7 @@ Set up Transferable so I can send files to my clients from here.
 2. Sign in: run `transferable login`, ask me to approve in the browser, then confirm with `transferable whoami`.
 ```
 
-The skill teaches your agent to upload, follow the upload and prepare the delivery, and
+The skill teaches your agent to upload, follow the upload, prepare and adjust the delivery, and
 never to publish a link without your go-ahead.
 
 ## Support
