@@ -1,0 +1,40 @@
+# Publishes a release to npm with trusted publishing (OIDC, no stored token) and
+# provenance. Triggered when a release is published here, or by hand with its tag.
+name: npm
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Release tag (vX.Y.Z)
+        required: true
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    env:
+      TAG: ${{ github.event.release.tag_name || inputs.tag }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          registry-url: https://registry.npmjs.org
+      - name: Download binaries
+        run: gh release download "$TAG" --repo "$GITHUB_REPOSITORY" --dir assets
+        env:
+          GH_TOKEN: ${{ github.token }}
+      - name: Verify checksums
+        run: cd assets && sha256sum -c checksums.txt
+      - name: Assemble packages
+        run: node scripts/npm-packages.mjs "${TAG#v}" assets packages
+      - name: Publish
+        run: |
+          for pkg in packages/cli-*; do npm publish "$pkg" --access public; done
+          npm publish packages/cli --access public
