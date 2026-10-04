@@ -36,5 +36,6 @@ jobs:
         run: node scripts/npm-packages.mjs "${TAG#v}" assets packages
       - name: Publish
         run: |
-          for pkg in packages/cli-*; do npm publish "$pkg" --access public; done
-          npm publish packages/cli --access public
+          # « ./ » : sans lui, npm lit « packages/cli » comme un dépôt GitHub.
+          for pkg in packages/cli-*; do npm publish "./$pkg" --access public; done
+          npm publish ./packages/cli --access public
