@@ -37,11 +37,16 @@ transferable deliver "Wedding - Dupont" --from "Dupont" --publish
 
 ## AI agents
 
-Teach your agent (Claude Code, Cursor, Codex and others) to use Transferable:
+Paste this into your agent (Claude Code, Codex, Cursor and others with a terminal):
 
-```sh
-npx skills add transferable-io/skills
+```text
+Set up Transferable so I can send files to my clients from here.
+1. Install: run `curl -fsSL https://transferable.io/install | sh`, then `npx -y skills add transferable-io/skills -g -y`.
+2. Sign in: run `transferable login`, ask me to approve in the browser, then confirm with `transferable whoami`.
 ```
+
+The skill teaches your agent to upload, follow the upload and prepare the delivery, and
+never to publish a link without your go-ahead.
 
 ## Support
 
