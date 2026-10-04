@@ -15,6 +15,12 @@ or
 curl -fsSL https://transferable.io/install | sh
 ```
 
+or, with Node.js 18+
+
+```sh
+npm install -g @transferable/cli
+```
+
 macOS (Apple Silicon and Intel) and Linux (x64 and arm64). The binaries are attached to
 each [release](https://github.com/transferable-io/cli/releases) with their SHA-256 checksums.
 
